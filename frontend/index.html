@@ -1,22 +1,24 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech with Lokesh</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
-        <h1>Tech with Manav</h1>
+        <h1>Tech with utkarsh kutta</h1>
         <p>Basic Three-Tier Architecture Example</p>
-        
+
         <div class="message-container">
             <h2>Message from Database:</h2>
             <div id="message-box">Loading...</div>
         </div>
-        
+
         <div class="form-container">
             <h2>Add New Message</h2>
             <form id="message-form">
@@ -30,16 +32,16 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Load messages on page load
             fetchMessages();
-            
+
             // Handle form submission
             const form = document.getElementById('message-form');
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const message = document.getElementById('message').value;
-                
+
                 // Send message to backend
                 fetch('api/save_message.php', {
                     method: 'POST',
@@ -48,27 +50,27 @@
                     },
                     body: 'message=' + encodeURIComponent(message)
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Clear form and reload messages
-                        document.getElementById('message').value = '';
-                        fetchMessages();
-                    } else {
-                        alert('Error saving message: ' + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while saving the message');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Clear form and reload messages
+                            document.getElementById('message').value = '';
+                            fetchMessages();
+                        } else {
+                            alert('Error saving message: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while saving the message');
+                    });
             });
         });
-        
+
         function fetchMessages() {
             const messageBox = document.getElementById('message-box');
             messageBox.textContent = 'Loading...';
-            
+
             // Fetch messages from backend
             fetch('api/get_messages.php')
                 .then(response => response.json())
@@ -96,4 +98,5 @@
         }
     </script>
 </body>
+
 </html>
